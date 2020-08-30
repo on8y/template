@@ -1,0 +1,55 @@
+.row {
+  width: 100%;
+  margin: 0 0 1rem;
+}
+
+.col {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  Input {
+    flex: 1;
+  }
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.send_btn_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+
+#components-table-demo-drag-sorting tr.drop-over-downward td {
+  border-bottom: 2px dashed #1890ff;
+}
+
+#components-table-demo-drag-sorting tr.drop-over-upward td {
+  border-top: 2px dashed #1890ff;
+}
+
+
+
+.root {
+  background-color: #e5eef6;
+  width: 100%;
+  min-height: 800px;
+}
+
+.test {
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 30px;
+  box-shadow: 9px 9px 10px #00000030, -6px -6px 20px #fffffff0;
+  /* , inset 9px 9px 10px #00000030, inset -6px -6px 20px #fffffff0*/
+  text-align: center;
+  line-height: 120px;
+}
