@@ -3,7 +3,7 @@ import { ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
 @Entity()
-export class Post {
+export class User {
 
   @Field()
   @PrimaryKey()
@@ -18,8 +18,12 @@ export class Post {
   updatedAt = new Date();
 
   @Field()
+  @Property({ type: 'text', unique: true })
+  username!: string;
+
+  // @Field()
   @Property({ type: 'text' })
-  title!: string;
+  password!: string;
 
   // @ManyToOne() // when you provide correct type hint, ORM will read it for you
   // author!: Author;

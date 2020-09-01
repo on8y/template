@@ -7,29 +7,55 @@ import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { HelloResolver } from './resolvers/hello';
 import { PostResolver } from './resolvers/post';
+import { UserResolver } from './resolvers/user';
 
-import 'reflect-metadata';
+// import 'reflect-metadata';
+
+import redis from 'redis'
+import session from 'express-session';
+import connectRedis from 'connect-redis';
+import { __prod__ } from './constants';
+import { MyContext } from './types';
 
 const main = async () => {
-	//ORM
+	//ORM init
 	const orm = await MikroORM.init(microConfig);
 	await orm.getMigrator().up();
 
-	// cosnt post = orm.em.create(Post, {title: 'my first post'});
-	// await orm.em.persistAndFlush(post);
-	// console.log('--------------sql 2--------------');
-	// await orm.em.nativeInsert(Post, { title: 'my first post 2'});
-	// const posts = await orm.em.find(Post, {});
-	// console.log(posts);
-
 	//web server
 	const app = express();
+
+	//缓存
+	const RedisStore = connectRedis(session);
+	const redisClient = redis.createClient();
+
+	app.use(
+		session({
+			name: 'qid',
+			store: new RedisStore({
+				client: redisClient,
+				// disableTTL: true, 
+				disableTouch: true
+			}),
+			cookie: {
+				maxAge: 1000 * 60 * 60 * 24 * 265 * 10, // 10 years
+				httpOnly: true,
+				sameSite: 'lax', // csrf
+				secure: __prod__ // cookie only work in https
+			},
+			saveUninitialized: false,
+			secret: 'zxcvbnm',
+			resave: false,
+		})
+	)
+
+	//orm
 	const apolloServer = new ApolloServer({
 		schema: buildSchema({
-			resolvers: [HelloResolver, PostResolver],
+			resolvers: [HelloResolver, PostResolver, UserResolver],
 			validate: false
 		}),
-		context: (/* {req, res}*/) => ({ em: orm.em })
+		context: ({ req, res }): MyContext => ({ em: orm.em, req, res })
 	});
 	apolloServer.applyMiddleware({ app });
 
