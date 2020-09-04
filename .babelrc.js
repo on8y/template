@@ -1,9 +1,14 @@
 const presets = [
-  "@babel/preset-env",
-  "@babel/preset-react"
+  [
+    "@babel/preset-env",
+    { targets: { "browsers": ["> 1%", "last 2 versions", "not ie <= 8"] } }
+  ],
+  "@babel/preset-react",
+  '@babel/preset-typescript',
 ];
 
 const plugins = [
+  '@babel/plugin-proposal-class-properties',
   [
     "@babel/plugin-transform-runtime", //避免全局污染，支持新功能
     {
