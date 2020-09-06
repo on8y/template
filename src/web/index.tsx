@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from './pages/app.tsx';
+import App from "./app.tsx";
 
-ReactDOM.hydrate(<App />, document.getElementById("root"));
+ReactDOM.hydrate(<App />, document.querySelector("#root"));

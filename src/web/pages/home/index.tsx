@@ -4,10 +4,10 @@ interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
   return <div>
-    <h3> Hello world </h3>
+    <h3> Home Page </h3>
     <button onClick={()=>{
       console.log('JS is Running')
-    }}>测试js按钮</button>
+    }}>Home</button>
   </div>;
 };
 

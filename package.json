@@ -6,9 +6,9 @@
   "scripts": {
     "dev:web": "cross-env NODE_ENV=development webpack --config webpack.client.js --progress",
     "dev:server": "cross-env NODE_ENV=development webpack --config webpack.server.js --progress",
-    "dev:start": "node dist/server/main.bundle.js",
-    "prod:web": "cross-env NODE_ENV=production webpack --progress",
-    "dev": "npm run dev:server && npm run dev:web && npm run dev:start"
+    "start:dev": "node dist/server/main.bundle.js",
+    "dev": "npm-run-all --parallel dev:* && npm run start:dev",
+    "prod:web": "cross-env NODE_ENV=production webpack --progress"
   },
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0"
   }
 }
