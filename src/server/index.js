@@ -14,15 +14,14 @@ app.use(bodyParser.json());
 app.use(express.static('dist/'));
 
 app.get('^/$', (req, res) => {
-	let url = path.resolve(__dirname, '../web/index.html');
-	console.log('-----------------', url)
+	
 	const content = renderToString(<App />);
+	const url = path.resolve('dist/web/index.html');
 	fs.readFile(url, 'utf8', (err, data) => {
 		if (err) {
       console.error(err)
       return res.status(500).send('An error occurred')
 		}
-		console.log('----------------- data', data)
 		return res.send(
       data.replace(
         '<div id="root"></div>',
@@ -35,3 +34,5 @@ app.get('^/$', (req, res) => {
 app.listen(PORT, () => {
 	console.log(`服务器已启动：http://localhost:${PORT}`)
 });
+
+//npm-run-all --parallel dev:*
