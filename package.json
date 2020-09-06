@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --progress",
-    "build": "cross-env NODE_ENV=production webpack --progress"
+    "dev:web": "cross-env NODE_ENV=development webpack --config webpack.client.js --progress",
+    "dev:server": "cross-env NODE_ENV=development webpack --config webpack.server.js --progress",
+    "dev:start": "node dist/server/main.bundle.js",
+    "prod:web": "cross-env NODE_ENV=production webpack --progress",
+    "dev": "npm-run-all --parallel dev:*"
   },
   "repository": {
     "type": "git",
@@ -24,16 +27,29 @@
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/express": "^4.17.8",
+    "@types/node": "^14.6.4",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
     "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
     "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^7.0.2",
     "html-webpack-plugin": "^4.4.1",
-    "webpack": "^4.44.1",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.0.2",
+    "webpack": "^5.0.0-beta.29",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-node-externals": "^2.5.2"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.11.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0"

@@ -6,10 +6,11 @@ const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: "./src/web/index.js", //入口文件
+  entry: "./src/web/index.tsx", //入口文件
   output: {
-    filename: `js/[name]${isProd ? ".[hash:8]" : ""}.bundle.js`, //出口文件
-    path: path.resolve(__dirname, "dist"), //输出路径
+    filename: `js/[name].[contenthash:8].bundle.js`, //出口文件
+    path: path.resolve(__dirname, "./dist/web"), //输出路径
+    publicPath: 'web'
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -22,17 +23,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js|jsx$/, //匹配 js 文件
-        exclude: /node_modules/, //排除文件夹
+        test: /\.js|jsx|ts|tsx$/, //匹配 js 文件
+        exclude: [/node_modules/,/ser\/servewr/], //排除文件夹
         use: [
           { loader: "babel-loader" }, //使用babel
         ],
-      },
+      }
     ],
-  },
-  devServer: {
-    contentBase: "./dist", //内容目录
-    open: "Chrome", //设置启动的浏览器
-    port: 3000, //启动端口
-  },
+  }
 };
